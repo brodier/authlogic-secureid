@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'authlogic_secureid'
-  s.version     = '0.0.0'
+  s.version     = '1.0.0'
   s.date        = '2010-04-28'
   s.require_paths = ["lib"]
   s.summary     = "Authlogic pluggin to used pam secureid module"

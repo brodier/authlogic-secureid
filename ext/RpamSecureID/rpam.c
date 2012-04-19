@@ -51,21 +51,31 @@ int auth_pam_talker(int num_msg,
    	unsigned short i = 0;
 	rpam_t *app_info = (rpam_t *) appdata_ptr;
 	struct pam_response *response = 0;
-  printf("\n DEBUG : Start pam talker \n");
+  printf("DEBUG : Start pam talker \n");
   /* parameter sanity checking */
   if (!resp || !msg || !app_info)
       return PAM_CONV_ERR;
+      
+  printf("\n DEBUG : Sanity Checking OK\n");      
+  
   if(num_msg != 1)
     return PAM_CONV_ERR;
+  
+  printf("DEBUG : nb msg = 1 \n");      
+  printf("DEBUG : msg = '%s' \n",msg[0]->msg);      
   
   /* allocate memory to store response */
 	response = malloc(sizeof(struct pam_response));
 	if (!response)
 		return PAM_CONV_ERR;
+    
+  printf("DEBUG : response allocation ok \n");
   /* initialize to safe values */
-	response[0].resp_retcode = 0;
-  response[0].resp = strdup(app_info->passcode);
+	response->resp_retcode = 0;
+  response->resp = strdup(app_info->passcode);
 
+  printf("DEBUG : %s \n",response->resp);
+  
 	/* everything okay, set PAM response values */
 	*resp = response;
 	return PAM_SUCCESS;

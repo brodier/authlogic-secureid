@@ -8,7 +8,7 @@ module AuthlogicSecureId
         include Methods
         include RpamSecureID
         
-        validate :validate_by_pam, :if => authenticating_with_pam?
+        validate :validate_by_pam, :if => :authenticating_with_pam?
       end
     end
     
@@ -47,16 +47,15 @@ module AuthlogicSecureId
           self.password = hash[:password] if hash.key?(:password)
         end
       end
-      
+
     private
-     
       def authenticating_with_pam?
         !login.blank? && !password.blank?
       end
-    
+      
       # override validate_by_password when RSA PAM SecureId is installing
       def validate_by_password
-        validate_by_pam
+        true
       end
       
       def find_by_pam_login_method
@@ -67,7 +66,7 @@ module AuthlogicSecureId
         if login.blank?
           errors.add(:pam_login, I18n.t('error_messages.login_blank', :default => 'cannot be blank'))
         elsif pam_login.blank?
-          attempt = self.class.klass.find_by_login(login)
+          attempt = klass.find_by_login(login)
           errors.add(:login, 'Invalid Login')  if attempt.nil?
           pam_login = attempt.pam_login
           errors.add(:pam_login, I18n.t('error_messages.pam_login_blank', :default => 'cannot be blank'))  if pam_login.blank?
@@ -77,11 +76,20 @@ module AuthlogicSecureId
        
         return if errors.count > 0
         
+        if pam_login.nil?
+          attempt = klass.find_by_login(login)
+          pam_login = attempt.pam_login
+        end
+        
+        if pam_login.nil?
+          raise "Error pam_login is nil user : #{attempt.login} pam_login= #{attempt.pam_login}"
+        end
+        
         if auth_secureid(pam_login, password)
-          self.attempted_record = klass.send(find_by_login, login)
+          self.attempted_record = klass.find_by_login(login)
           errors.add(:login, I18n.t('error_messages.login_not_found', :default => "does not exist")) if attempted_record.blank?
         else
-          errors.add_to_base("PAM RSA SecureID authentication failed")
+          errors.add(:password, "PAM RSA SecureID authentication failed")
         end
       end
     end
