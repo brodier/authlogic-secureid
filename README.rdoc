@@ -1,12 +1,10 @@
-= Rpam 
+= AuthlogicSecureID
 
-* http://rubyforge.org/projects/rpam
+* https://github.com/brodier/authlogic-secureid
 
 == DESCRIPTION:
 
-   This extension provides PAM (Pluggable Authentication Modules) integration.
-   The library provides a stable API for applications to defer to for
-   authentication tasks.
+   This extension based on ruby-rpam provide an pluggin for authlogic to use RSA SecureID(TM) token to authenticate user.
 
 == FEATURES/PROBLEMS:
 
@@ -14,34 +12,19 @@
 
 == SYNOPSIS:
 
-In a nutshell:
+add pam_login field in Users model
 
-  require 'rpam'
-  include Rpam
-
-  if authpam("user","password") == true
-	puts "Authenticate Successful"
-  else
-  	puts "Authenticate Failure"
-  end
 
 == REQUIREMENTS:
 
-
 * pam-devel 
 * ruby-devel
+* authlogic 
+
 
 == INSTALL:
 
-* gem install rpam (might need sudo privileges)
-
-Or, you can do it the hard way (without Rubygems):
-
-* tar xzf rpam-*.tar.gz
-* cd rpam-*/ext
-* ruby extconf.rb
-* make
-* make install (might need sudo privileges)
+* gem install authlogic_secureid (might need sudo privileges)
 
 == LICENSE:
   This program is free software; you can redistribute it and/or modify

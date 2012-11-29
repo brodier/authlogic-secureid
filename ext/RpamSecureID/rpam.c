@@ -1,6 +1,7 @@
 /******************************************************************************
  *
- * Rpam Copyright (c) 2008 Andre Osti de Moura <andreoandre@gmail.com>
+ * Rpam-secureid Copyright (c) 2010 Bernard Rodier <bernard.rodier@gmail.com>
+ * based on Rpam Copyright (c) 2008 Andre Osti de Moura <andreoandre@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -2,3 +2,7 @@
 	* First version stable
 2009-09-07 Andre Osti de Moura <andreoandre@gmail.com>
 	* Add path of Klaus Kaempf <kkaempf@suse.de>
+2012-11-29
+        * Reused source for developping RSA SecureID pluggin for authlogic
+	<bernard.rodier@gmail.com>
+
